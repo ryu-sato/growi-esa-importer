@@ -1,6 +1,7 @@
 class CreatePosts < ActiveRecord::Migration[5.1]
   def change
     create_table :posts do |t|
+      t.integer :number,           null: false
       t.string :name,              null: false, default: ""
       t.references :tags,          null: false, default: []
       t.string :category,          null: false, default: ""
