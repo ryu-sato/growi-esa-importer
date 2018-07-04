@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20180704184034) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "number", null: false
     t.string "name", default: "", null: false
     t.string "screen_name", default: "", null: false
     t.string "icon", default: "", null: false
