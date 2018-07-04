@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20180704184034) do
   create_table "posts", force: :cascade do |t|
     t.integer "number", null: false
     t.string "name", default: "", null: false
-    t.integer "tags_id", null: false
+    t.text "tags", default: "--- []\n", null: false
     t.string "category", default: "", null: false
     t.string "full_name", default: "", null: false
     t.boolean "wip", default: false, null: false
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20180704184034) do
     t.boolean "star", default: false, null: false
     t.boolean "watch", default: false, null: false
     t.index ["created_by_id"], name: "index_posts_on_created_by_id"
-    t.index ["tags_id"], name: "index_posts_on_tags_id"
     t.index ["updated_by_id"], name: "index_posts_on_updated_by_id"
   end
 

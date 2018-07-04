@@ -3,7 +3,7 @@ class CreatePosts < ActiveRecord::Migration[5.1]
     create_table :posts do |t|
       t.integer :number,           null: false
       t.string :name,              null: false, default: ""
-      t.references :tags,          null: false, default: []
+      t.text :tags,                null: false, array: true, default: [].to_yaml
       t.string :category,          null: false, default: ""
       t.string :full_name,         null: false, default: ""
       t.boolean :wip,              null: false, default: false
