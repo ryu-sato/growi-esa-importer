@@ -1,6 +1,7 @@
 class CreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
+      t.integer :number,      null: false
       t.string :name,         null: false, default: ""
       t.string :screen_name,  null: false, default: ""
       t.string :icon,         null: false, default: ""
