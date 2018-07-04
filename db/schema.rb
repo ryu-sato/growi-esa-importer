@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20180704184034) do
     t.string "body_html", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url", default: "", null: false
     t.string "message", default: "", null: false
     t.integer "revision_number", null: false
     t.integer "created_by_id", null: false

@@ -11,6 +11,7 @@ class CreatePosts < ActiveRecord::Migration[5.1]
       t.string :body_html,         null: false, default: ""
       t.datetime :created_at,      null: false
       t.datetime :updated_at,      null: false
+      t.string :url,               null: false, default: ""
       t.string :message,           null: false, default: ""
       t.integer :revision_number,  null: false
       t.references :created_by,    null: false
