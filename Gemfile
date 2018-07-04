@@ -53,6 +53,10 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# Use crowi-client
+# Use crowi API
 gem 'crowi-client', '~> 0.1'
+# Use esa API
 gem 'esa', '~> 1.0'
+
+# Use config
+gem 'config', '~> 1.0'
