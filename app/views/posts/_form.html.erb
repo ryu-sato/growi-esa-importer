@@ -1,0 +1,122 @@
+<%= form_with(model: post, local: true) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :post_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tags %>
+    <%= form.text_field :tags, id: :post_tags %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category %>
+    <%= form.text_field :category, id: :post_category %>
+  </div>
+
+  <div class="field">
+    <%= form.label :full_name %>
+    <%= form.text_field :full_name, id: :post_full_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :wip %>
+    <%= form.check_box :wip, id: :post_wip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body_md %>
+    <%= form.text_field :body_md, id: :post_body_md %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body_html %>
+    <%= form.text_field :body_html, id: :post_body_html %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_at %>
+    <%= form.datetime_select :created_at, id: :post_created_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :updated_at %>
+    <%= form.datetime_select :updated_at, id: :post_updated_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :message %>
+    <%= form.text_field :message, id: :post_message %>
+  </div>
+
+  <div class="field">
+    <%= form.label :revision_number %>
+    <%= form.number_field :revision_number, id: :post_revision_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_by %>
+    <%= form.text_field :created_by, id: :post_created_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :updated_by %>
+    <%= form.text_field :updated_by, id: :post_updated_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :kind %>
+    <%= form.text_field :kind, id: :post_kind %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comments_count %>
+    <%= form.number_field :comments_count, id: :post_comments_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tasks_count %>
+    <%= form.number_field :tasks_count, id: :post_tasks_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :done_tasks_count %>
+    <%= form.number_field :done_tasks_count, id: :post_done_tasks_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stargazers_count %>
+    <%= form.number_field :stargazers_count, id: :post_stargazers_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :watchers_count %>
+    <%= form.number_field :watchers_count, id: :post_watchers_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :star %>
+    <%= form.check_box :star, id: :post_star %>
+  </div>
+
+  <div class="field">
+    <%= form.label :watch %>
+    <%= form.check_box :watch, id: :post_watch %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

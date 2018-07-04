@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  tags: 
+  category: MyString
+  full_name: MyString
+  wip: false
+  body_md: MyString
+  body_html: MyString
+  created_at: 2018-07-04 18:40:34
+  updated_at: 2018-07-04 18:40:34
+  message: MyString
+  revision_number: 1
+  created_by: 
+  updated_by: 
+  kind: MyString
+  comments_count: 1
+  tasks_count: 1
+  done_tasks_count: 1
+  stargazers_count: 1
+  watchers_count: 1
+  star: false
+  watch: false
+
+two:
+  name: MyString
+  tags: 
+  category: MyString
+  full_name: MyString
+  wip: false
+  body_md: MyString
+  body_html: MyString
+  created_at: 2018-07-04 18:40:34
+  updated_at: 2018-07-04 18:40:34
+  message: MyString
+  revision_number: 1
+  created_by: 
+  updated_by: 
+  kind: MyString
+  comments_count: 1
+  tasks_count: 1
+  done_tasks_count: 1
+  stargazers_count: 1
+  watchers_count: 1
+  star: false
+  watch: false
