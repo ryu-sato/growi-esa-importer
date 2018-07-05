@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Body md:</strong>
+  <%= @comment.body_md %>
+</p>
+
+<p>
+  <strong>Body html:</strong>
+  <%= @comment.body_html %>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @comment.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @comment.updated_at %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @comment.url %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @comment.created_by %>
+</p>
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', comments_path %>

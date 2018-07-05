@@ -24,7 +24,7 @@ class CreatePosts < ActiveRecord::Migration[5.1]
       t.integer    :watchers_count,   null: false, default: 0
       t.boolean    :star,             null: false, default: false
       t.boolean    :watch,            null: false, default: false
-      t.integer :lock_version, default: 0, null: false # use optimistic lock
+      t.integer    :lock_version,     null: false, default: 0 # use optimistic lock
 
       t.timestamps
     end
