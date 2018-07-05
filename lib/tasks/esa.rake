@@ -12,23 +12,28 @@ namespace :esa do
 
     # モデルをすべて削除してから解析したモデルを追加する
     ActiveRecord::Base.transaction do
-      # User.destroy_all
-      # p client.members.body['members']
-      client.members.body['members']&.each do |member|
-        new_user = User.new
-        new_user.update(member)
-        new_user.save!
-      end
+      User.destroy_all
+      client.members.body['members']&.each {|member| User.create(member) }
 
-      # Post.destroy_all
-      # p client.posts.body['posts']
+      Post.destroy_all
       client.posts.body['posts']&.each do |post|
+        # puts '---- add post'
+        # p post
+        # puts '--- User.find_by name: post["created_by"]["name"]'
+        # p User.find_by name: post["created_by"]["name"]
+        # puts '--- post["created_by"]'
+        # p post["created_by"]
+        # puts '--- post["created_by"]["name"]'
+        # p post["created_by"]["name"]
+
         new_post = Post.new
-        ignore_attributes = %w(updated_at created_by updated_by sharing_urls)
-        new_post.update(post.reject {|k,v| ignore_attributes.include?(k)})
-        new_post.updated_at = DateTime.new(post[:updated_at])
-        new_post.created_by = User.where(name: post[:created_by][:name])
-        new_post.updated_by = User.where(name: post[:updated_by][:name])
+        new_post.created_by = User.find_by(name: post["created_by"]["name"]) || User.create(post["created_by"])
+        new_post.updated_by = User.find_by(name: post["updated_by"]["name"]) || User.create(post["updated_by"])
+        new_post.tags = Array.new post["tags"]
+        ignore_attributes = %w(created_by updated_by sharing_urls tags)
+        post.reject {|k,v| ignore_attributes.include?(k)}.each {|k,v| new_post.send(k + "=", v) }
+        puts '---- new post'
+        p new_post
         new_post.save!
       end
     end

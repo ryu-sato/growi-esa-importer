@@ -13,10 +13,10 @@
 ActiveRecord::Schema.define(version: 20180704184034) do
 
   create_table "posts", force: :cascade do |t|
-    t.integer "number", null: false
+    t.integer "number", default: 0, null: false
     t.string "name", default: "", null: false
     t.text "tags", default: "--- []\n", null: false
-    t.string "category", default: "", null: false
+    t.string "category"
     t.string "full_name", default: "", null: false
     t.boolean "wip", default: false, null: false
     t.string "body_md", default: "", null: false
@@ -25,17 +25,18 @@ ActiveRecord::Schema.define(version: 20180704184034) do
     t.datetime "updated_at", null: false
     t.string "url", default: "", null: false
     t.string "message", default: "", null: false
-    t.integer "revision_number", null: false
+    t.integer "revision_number", default: 0, null: false
     t.integer "created_by_id", null: false
     t.integer "updated_by_id", null: false
     t.string "kind", default: "", null: false
-    t.integer "comments_count", null: false
-    t.integer "tasks_count", null: false
-    t.integer "done_tasks_count", null: false
-    t.integer "stargazers_count", null: false
-    t.integer "watchers_count", null: false
+    t.integer "comments_count", default: 0, null: false
+    t.integer "tasks_count", default: 0, null: false
+    t.integer "done_tasks_count", default: 0, null: false
+    t.integer "stargazers_count", default: 0, null: false
+    t.integer "watchers_count", default: 0, null: false
     t.boolean "star", default: false, null: false
     t.boolean "watch", default: false, null: false
+    t.integer "lock_version", default: 0, null: false
     t.index ["created_by_id"], name: "index_posts_on_created_by_id"
     t.index ["updated_by_id"], name: "index_posts_on_updated_by_id"
   end
@@ -45,7 +46,8 @@ ActiveRecord::Schema.define(version: 20180704184034) do
     t.string "screen_name", default: "", null: false
     t.string "icon", default: "", null: false
     t.string "email", default: "", null: false
-    t.integer "posts_count", null: false
+    t.integer "posts_count", default: 0, null: false
+    t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

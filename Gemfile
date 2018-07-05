@@ -48,17 +48,20 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  
+  # annotate schema to model
+  gem 'annotate', '>= 2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Use crowi API
-gem 'crowi-client', '~> 0.1'
+gem 'crowi-client', '>= 0.1'
 # Use esa API
-gem 'esa', '~> 1.0'
+gem 'esa', '>= 1.0'
 
 # Use config
-gem 'config', '~> 1.0'
+gem 'config', '>= 1.0'
 # Use dotenv
-gem 'dotenv', '~> 2.5'
+gem 'dotenv', '>= 2.5'
