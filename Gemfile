@@ -65,3 +65,13 @@ gem 'esa', '>= 1.0'
 gem 'config', '>= 1.0'
 # Use dotenv
 gem 'dotenv', '>= 2.5'
+
+# Use activeadmin (see. https://github.com/activeadmin/activeadmin)
+## main
+gem 'activeadmin'
+
+## Plus integrations with:
+gem 'devise'
+gem 'cancan' # or cancancan
+gem 'draper'
+gem 'pundit'
