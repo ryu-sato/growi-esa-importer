@@ -7,8 +7,12 @@ class CreateComments < ActiveRecord::Migration[5.1]
       t.datetime   :updated_at,       null: true,  default: nil
       t.string     :url,              null: true,  default: nil
       t.references :created_by,       null: false
-      t.integer    :lock_version,     null: false, default: 0 # use optimistic lock
 
+      # [Note] No detail info in API v1 doc
+      t.integer    :stargazers_count, null: false, default: 0
+      t.boolean    :star,             null: false, default: false
+
+      t.integer    :lock_version,     null: false, default: 0 # use optimistic lock
       t.timestamps
     end
     add_foreign_key :comments, :users, column: "created_by_id"

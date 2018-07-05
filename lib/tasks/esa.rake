@@ -15,6 +15,7 @@ namespace :esa do
       # データを全て破棄する
       User.destroy_all
       Post.destroy_all
+      Comment.destroy_all
 
       # ユーザをインポートする
       esaclient.members.body['members']&.each {|member| User.create(member) }
@@ -30,6 +31,16 @@ namespace :esa do
         new_post.save!
       end
 
+      # コメントをインポートする
+      Post.all.each do |post|
+        p '--- comments'
+        p esaclient.comments(post.number).body['comments']
+        esaclient.comments(post.number).body['comments']&.each do |comment|
+          new_comment = Comment.new
+          new_comment.created_by = User.find_by(name: comment["created_by"]["name"]) || User.create(comment["created_by"])
+          new_comment.save!
+        end
+      end
     end
   end
 end
