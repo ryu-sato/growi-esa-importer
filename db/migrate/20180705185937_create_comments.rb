@@ -7,6 +7,7 @@ class CreateComments < ActiveRecord::Migration[5.1]
       t.datetime   :updated_at,       null: true,  default: nil
       t.string     :url,              null: true,  default: nil
       t.references :created_by,       null: false
+      t.references :post,             null: false, foreign_key: true
 
       # [Note] No detail info in API v1 doc
       t.integer    :stargazers_count, null: false, default: 0
