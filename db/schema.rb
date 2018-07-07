@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20180707142926) do
   end
 
   create_table "attachments", force: :cascade do |t|
-    t.string "filename"
     t.binary "data", limit: 10485760
     t.string "url"
     t.integer "post_id", null: false

@@ -1,6 +1,7 @@
 require 'esa'
 require 'crowi-client'
 require 'json'
+require "open-uri"
 
 namespace :esa do
   desc "esa からデータを取得してDBへ保存する"
@@ -16,6 +17,7 @@ namespace :esa do
       User.destroy_all
       Post.destroy_all
       Comment.destroy_all
+      Attachment.destroy_all
 
       # ユーザをインポートする
       esaclient.members.body['members']&.each {|member| User.create(member) }
@@ -44,7 +46,17 @@ namespace :esa do
         end
       end
 
-      # [TODO] 添付ファイルをインポートする
+      # 添付ファイルをダウンロードしてインポートする
+      Post.all.each do |post|
+        post.body_md.scan /\[([^\[\]]+)\]\(([^()]+)\)/ do |link_text, link_href|
+          p link_text, link_href
+          attachment = Attachment.new(url: link_href)
+          next unless attachment.match_attachment_url? # esa の添付ファイル用URLでは無ければスルー
+
+          attachment_url = open(link_href)
+          attachment.update(post: post, url: link_href, data: attachment_url.read)
+        end
+      end
     end
   end
 

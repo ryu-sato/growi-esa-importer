@@ -9,6 +9,7 @@
 #  updated_at       :datetime         not null
 #  url              :string
 #  created_by_id    :integer          not null
+#  post_id          :integer          not null
 #  stargazers_count :integer          default(0), not null
 #  star             :boolean          default(FALSE), not null
 #  lock_version     :integer          default(0), not null
