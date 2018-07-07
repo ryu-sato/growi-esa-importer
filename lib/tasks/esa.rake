@@ -1,7 +1,8 @@
 require 'esa'
 require 'crowi-client'
 require 'json'
-require "open-uri"
+require 'open-uri'
+require 'tmpdir'
 
 namespace :esa do
   desc "esa からデータを取得してDBへ保存する"
@@ -60,6 +61,18 @@ namespace :esa do
     end
   end
 
+  desc "esa のデータ形式を GROWI の形式に変更する"
+  task :convert_to_growi => :environment do
+    # [Note] Markdown で未対応のものがあればここに記述する
+
+    # バグ対策
+    ## ファイル名が .md で終わっていると GROWI が .md を無視したページとして認識する
+    Post.all.each do |post|
+      new_name = post.name.gsub(/\.md(.*)$|\.md(\/)/, '\1')
+      post.update(name: new_name)
+    end
+  end
+
   desc "DBのデータを GROWI へ保存する"
   task :export_to_growi => :environment do
 
@@ -77,17 +90,46 @@ namespace :esa do
         # 記事の内容を更新する
         page_id = crowiclient.page_id path_exp: path
         req_update_page = CPApiRequestPagesUpdate.new(
-                            page_id: page_id, body: post.body_md,
-                            grant: CrowiPage::GRANT_PUBLIC)
+                            page_id: page_id, body: post.body_md)
         crowiclient.request req_update_page
       else
         # 記事が無ければ作成する
         req_create_page = CPApiRequestPagesCreate.new(
                             path: path, body: post.body_md)
         res = crowiclient.request req_create_page
-        if res.kind_of? CPInvalidRequest
-          p res.msg
-          next
+        (p res.msg && next) if res.kind_of? CPInvalidRequest
+        page_id = res.data.id
+      end
+
+      # 添付ファイルをアップロードする
+      next unless page_id # 新規作成できているはずだが一応 page_id を取得できなければスルー
+      Attachment.where(post: post).each do |attachment|
+
+        # 添付ファイルをアップロード
+        Dir.mktmpdir do |tmp_dir|
+          File.open(File.join(tmp_dir, attachment.filename), 'w') do |tmp_file|
+            tmp_file.binmode
+            tmp_file.write(attachment.data)
+
+            # 添付ファイルをアップロード
+            req_add_attachment = CPApiRequestAttachmentsAdd.new(
+                                   page_id: page_id, file: tmp_file.path)
+            res = crowiclient.request req_add_attachment
+            (p res.msg && next) if res.kind_of? CPInvalidRequest
+
+            # アップロードした添付ファイルを元に記事のリンクを置き換える
+            req_get_attachment_list = CPApiRequestAttachmentsList.new page_id: page_id
+            res = crowiclient.request req_get_attachment_list
+            (p res.msg && next) if res.kind_of? CPInvalidRequest
+            growi_attachment = res.data.find(originalName: attachment.filename)
+
+            new_body_md = post.body_md.gsub(/[^(\[\]+)]\([^\(\)]+\)/, "[\\1](#{growi_attachment.url})")
+            post.update(body_md: new_body_md)
+            req_update_page = CPApiRequestPagesUpdate.new(
+              page_id: page_id, body: post.body_md)
+            res = crowiclient.request req_update_page
+            (p res.msg && next) if res.kind_of? CPInvalidRequest
+          end
         end
       end
     end
