@@ -1,109 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @post.name %>
-</p>
-
-<p>
-  <strong>Tags:</strong>
-  <%= @post.tags %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @post.category %>
-</p>
-
-<p>
-  <strong>Full name:</strong>
-  <%= @post.full_name %>
-</p>
-
-<p>
-  <strong>Wip:</strong>
-  <%= @post.wip %>
-</p>
-
-<p>
-  <strong>Body md:</strong>
-  <%= @post.body_md %>
-</p>
-
-<p>
-  <strong>Body html:</strong>
-  <%= @post.body_html %>
-</p>
-
-<p>
-  <strong>Created at:</strong>
-  <%= @post.created_at %>
-</p>
-
-<p>
-  <strong>Updated at:</strong>
-  <%= @post.updated_at %>
-</p>
-
-<p>
-  <strong>Message:</strong>
-  <%= @post.message %>
-</p>
-
-<p>
-  <strong>Revision number:</strong>
-  <%= @post.revision_number %>
-</p>
-
-<p>
-  <strong>Created by:</strong>
-  <%= @post.created_by %>
-</p>
-
-<p>
-  <strong>Updated by:</strong>
-  <%= @post.updated_by %>
-</p>
-
-<p>
-  <strong>Kind:</strong>
-  <%= @post.kind %>
-</p>
-
-<p>
-  <strong>Comments count:</strong>
-  <%= @post.comments_count %>
-</p>
-
-<p>
-  <strong>Tasks count:</strong>
-  <%= @post.tasks_count %>
-</p>
-
-<p>
-  <strong>Done tasks count:</strong>
-  <%= @post.done_tasks_count %>
-</p>
-
-<p>
-  <strong>Stargazers count:</strong>
-  <%= @post.stargazers_count %>
-</p>
-
-<p>
-  <strong>Watchers count:</strong>
-  <%= @post.watchers_count %>
-</p>
-
-<p>
-  <strong>Star:</strong>
-  <%= @post.star %>
-</p>
-
-<p>
-  <strong>Watch:</strong>
-  <%= @post.watch %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<div class="container-fluid">
+  <dl class="row">
+    <% show_attributes = @post.attributes.reject {|k,v| k == "lock_version"} %>
+    <% show_attributes.each do |k,v| %>
+      <dt class="col-sm-2"><%= Post.human_attribute_name(k) %></dt>
+      <dd class="col-sm-10"><%= v %></dd>
+    <% end %>
+  </dl>
+  
+  <%= link_to 'Back', posts_path %>
+</div>

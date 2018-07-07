@@ -1,67 +1,45 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Posts</h1>
+<div class="container-fluid">
+  <h1>Posts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Tags</th>
-      <th>Category</th>
-      <th>Full name</th>
-      <th>Wip</th>
-      <th>Body md</th>
-      <th>Body html</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-      <th>Message</th>
-      <th>Revision number</th>
-      <th>Created by</th>
-      <th>Updated by</th>
-      <th>Kind</th>
-      <th>Comments count</th>
-      <th>Tasks count</th>
-      <th>Done tasks count</th>
-      <th>Stargazers count</th>
-      <th>Watchers count</th>
-      <th>Star</th>
-      <th>Watch</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
+  <table class="table table-sm table-striped">
+    <thead class="table-dark">
       <tr>
-        <td><%= post.name %></td>
-        <td><%= post.tags %></td>
-        <td><%= post.category %></td>
-        <td><%= post.full_name %></td>
-        <td><%= post.wip %></td>
-        <td><%= post.body_md %></td>
-        <td><%= post.body_html %></td>
-        <td><%= post.created_at %></td>
-        <td><%= post.updated_at %></td>
-        <td><%= post.message %></td>
-        <td><%= post.revision_number %></td>
-        <td><%= post.created_by %></td>
-        <td><%= post.updated_by %></td>
-        <td><%= post.kind %></td>
-        <td><%= post.comments_count %></td>
-        <td><%= post.tasks_count %></td>
-        <td><%= post.done_tasks_count %></td>
-        <td><%= post.stargazers_count %></td>
-        <td><%= post.watchers_count %></td>
-        <td><%= post.star %></td>
-        <td><%= post.watch %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Full name</th>
+        <th>Tags</th>
+        <th>Wip</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Kind</th>
+        <th>Comments count</th>
+        <th>Tasks count</th>
+        <th>Done tasks count</th>
+        <th>Stargazers count</th>
+        <th>Watchers count</th>
+        <th>Star</th>
+        <th>Watch</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Post', new_post_path %>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td><%= link_to post.full_name, post %></td>
+          <td><%= post.tags %></td>
+          <td><%= post.wip %></td>
+          <td><%= post.created_at %></td>
+          <td><%= post.updated_at %></td>
+          <td><%= post.kind %></td>
+          <td><%= post.comments_count %></td>
+          <td><%= post.tasks_count %></td>
+          <td><%= post.done_tasks_count %></td>
+          <td><%= post.stargazers_count %></td>
+          <td><%= post.watchers_count %></td>
+          <td><%= post.star %></td>
+          <td><%= post.watch %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

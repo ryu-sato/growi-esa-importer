@@ -12,4 +12,11 @@
 //
 //= require rails-ujs
 //= require turbolinks
-//= require_tree .
+//
+// bootstrap
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
+//
+// ref http://mrdanadams.com/2011/exclude-active-admin-js-css-rails/#.W0EmjbgyX_U
+//= require_tree ./main
