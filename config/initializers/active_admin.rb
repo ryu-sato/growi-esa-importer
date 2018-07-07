@@ -297,3 +297,20 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
 end
+
+
+# monkey-patch
+# see: http://stackoverflow.com/a/12591523
+#      http://www.rubydoc.info/github/gregbell/active_admin/ActiveAdmin/Views/Header
+module ActiveAdmin
+  module Views
+    class Header < Component
+      def build(namespace, menu)
+        # id: header にすると、Active Admin のスタイルが適用されてしまうため、
+        # それ以外の文字列を指定する
+        super(id: 'gie-navbar', class: 'bootstrap')
+        render(partial: 'layouts/navbar')
+      end
+    end
+  end
+end
