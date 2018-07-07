@@ -25,37 +25,36 @@ namespace :esa do
 
       # 記事をインポートする
       esaclient.posts.body['posts']&.each do |post|
-        new_post = Post.new
-        new_post.created_by = User.find_by(name: post["created_by"]["name"]) || User.create(post["created_by"])
-        new_post.updated_by = User.find_by(name: post["updated_by"]["name"]) || User.create(post["updated_by"])
-        new_post.tags = Array.new post["tags"]
         ignore_attributes = %w(created_by updated_by sharing_urls tags)
-        post.reject {|k,v| ignore_attributes.include?(k)}.each {|k,v| new_post.send(k + "=", v) }
-        new_post.save!
+        post_attributes = post.reject {|k,v| ignore_attributes.include?(k)}.merge({
+          created_by: User.find_by(name: post["created_by"]["name"]) || User.create(post["created_by"]),
+          updated_by: User.find_by(name: post["updated_by"]["name"]) || User.create(post["updated_by"]),
+          tags:       Array.new(post["tags"])
+        })
+        p Post.create(post_attributes)
       end
 
       # コメントをインポートする
       Post.all.each do |post|
-        esaclient.comments(post.number).body['comments']
         esaclient.comments(post.number).body['comments']&.each do |comment|
-          new_comment = Comment.new
-          new_comment.created_by = User.find_by(name: comment["created_by"]["name"]) || User.create(comment["created_by"])
-          new_comment.post = post
           ignore_attributes = %w(created_by)
-          comment.reject {|k,v| ignore_attributes.include?(k)}.each {|k,v| new_comment.send(k + "=", v) }
-          new_comment.save!
+          comment_attributes = comment.reject {|k,v| ignore_attributes.include?(k)}.merge({
+            post:       post,
+            created_by: User.find_by(name: comment["created_by"]["name"]) || User.create(comment["created_by"])
+          })
+          p Comment.create(comment_attributes)
         end
       end
 
       # 添付ファイルをダウンロードしてインポートする
       Post.all.each do |post|
         post.body_md.scan /\[([^\[\]]+)\]\(([^()]+)\)/ do |link_text, link_href|
-          p link_text, link_href
           attachment = Attachment.new(url: link_href)
           next unless attachment.match_attachment_url? # esa の添付ファイル用URLでは無ければスルー
 
           attachment_url = open(link_href)
           attachment.update(post: post, url: link_href, data: attachment_url.read)
+          p attachment
         end
       end
     end
