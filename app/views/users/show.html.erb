@@ -1,29 +1,11 @@
-<p id="notice"><%= notice %></p>
+<h1>User</h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Screen name:</strong>
-  <%= @user.screen_name %>
-</p>
-
-<p>
-  <strong>Icon:</strong>
-  <%= @user.icon %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Posts count:</strong>
-  <%= @user.posts_count %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<dl class="row">
+  <% show_attributes = @user.attributes.reject {|k,v| k == "lock_version"} %>
+  <% show_attributes.each do |k,v| %>
+    <dt class="col-sm-2"><%= User.human_attribute_name(k) %></dt>
+    <dd class="col-sm-10"><%= v %></dd>
+  <% end %>
+</dl>
+  
+<%= link_to 'Back', posts_path %>

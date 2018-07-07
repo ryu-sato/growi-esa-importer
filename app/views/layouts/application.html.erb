@@ -10,6 +10,13 @@
 
   <body>
     <%= render 'layouts/navbar' %>
-    <%= yield %>
+
+    <!-- Flash message -->
+    <p id="notice"><%= notice %></p>
+
+    <!-- Each page -->
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
   </body>
 </html>
