@@ -14,11 +14,13 @@ ActiveAdmin.register Attachment do
 
   # index ページの表示内容をカスタマイズ
   index do
+    selectable_column # 選択カラムを追加
     # data は binary なので非表示
     column :id
     column :url
     column :post
     column :created_at
     column :updated_at
+    actions # アクションカラムを追加
   end
 end
