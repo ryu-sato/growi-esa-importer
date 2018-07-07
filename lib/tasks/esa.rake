@@ -4,7 +4,7 @@ require 'json'
 
 namespace :esa do
   desc "esa からデータを取得してDBへ保存する"
-  task :export_to_db => :environment do
+  task :import_to_db => :environment do
 
     # esa Client を初期化
     Dotenv.load
@@ -33,8 +33,7 @@ namespace :esa do
 
       # コメントをインポートする
       Post.all.each do |post|
-        p '--- comments'
-        p esaclient.comments(post.number).body['comments']
+        esaclient.comments(post.number).body['comments']
         esaclient.comments(post.number).body['comments']&.each do |comment|
           new_comment = Comment.new
           new_comment.created_by = User.find_by(name: comment["created_by"]["name"]) || User.create(comment["created_by"])
@@ -50,18 +49,35 @@ namespace :esa do
   end
 
   desc "DBのデータを GROWI へ保存する"
-  task :import_from_db => :environment do
+  task :export_to_growi => :environment do
 
     # Crowi(GROWIも可) client を初期化
     crowiclient = CrowiClient.instance
 
     # 記事を GRWOI へ保存する
     Post.all.each do |post|
-      res = crowiclient.request CPApiRequestPagesCreate.new path: post.name, body: post.body_md
-      next if res.ok
 
-      # 記事にコメントを保存する
-      Comment.where()
+      # esa のカテゴリと記事名から GRWOI の path を作成する
+      path = '/' + [post.category, post.name].compact.join('/')
+
+      # 記事を GROWI へ保存する
+      if crowiclient.page_exist?(path_exp: path)
+        # 記事の内容を更新する
+        page_id = crowiclient.page_id path_exp: path
+        req_update_page = CPApiRequestPagesUpdate.new(
+                            page_id: page_id, body: post.body_md,
+                            grant: CrowiPage::GRANT_PUBLIC)
+        crowiclient.request req_update_page
+      else
+        # 記事が無ければ作成する
+        req_create_page = CPApiRequestPagesCreate.new(
+                            path: path, body: post.body_md)
+        res = crowiclient.request req_create_page
+        if res.kind_of? CPInvalidRequest
+          p res.msg
+          next
+        end
+      end
     end
   end
 end
