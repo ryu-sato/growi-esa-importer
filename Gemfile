@@ -79,3 +79,6 @@ gem 'pundit'
 # bootstrap
 gem 'bootstrap', '~> 4.1.1'
 gem 'jquery-rails'
+
+# font-awesome-rails (see. https://github.com/bokmann/font-awesome-rails)
+gem "font-awesome-rails"
