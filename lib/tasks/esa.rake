@@ -1,10 +1,10 @@
 require 'esa'
+require 'crowi-client'
 require 'json'
 
 namespace :esa do
-  desc "esa からデータを取得してローカルのDBへ保存する"
-
-  task :import_to_db => :environment do
+  desc "esa からデータを取得してDBへ保存する"
+  task :export_to_db => :environment do
 
     # esa Client を初期化
     Dotenv.load
@@ -38,9 +38,30 @@ namespace :esa do
         esaclient.comments(post.number).body['comments']&.each do |comment|
           new_comment = Comment.new
           new_comment.created_by = User.find_by(name: comment["created_by"]["name"]) || User.create(comment["created_by"])
+          new_comment.post = post
+          ignore_attributes = %w(created_by)
+          comment.reject {|k,v| ignore_attributes.include?(k)}.each {|k,v| new_comment.send(k + "=", v) }
           new_comment.save!
         end
       end
+
+      # [TODO] 添付ファイルをインポートする
+    end
+  end
+
+  desc "DBのデータを GROWI へ保存する"
+  task :import_from_db => :environment do
+
+    # Crowi(GROWIも可) client を初期化
+    crowiclient = CrowiClient.instance
+
+    # 記事を GRWOI へ保存する
+    Post.all.each do |post|
+      res = crowiclient.request CPApiRequestPagesCreate.new path: post.name, body: post.body_md
+      next if res.ok
+
+      # 記事にコメントを保存する
+      Comment.where()
     end
   end
 end

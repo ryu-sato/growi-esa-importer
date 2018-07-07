@@ -33,10 +33,12 @@ ActiveRecord::Schema.define(version: 20180705185937) do
     t.datetime "updated_at", null: false
     t.string "url"
     t.integer "created_by_id", null: false
+    t.integer "post_id", null: false
     t.integer "stargazers_count", default: 0, null: false
     t.boolean "star", default: false, null: false
     t.integer "lock_version", default: 0, null: false
     t.index ["created_by_id"], name: "index_comments_on_created_by_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
