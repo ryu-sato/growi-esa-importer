@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  esa_access_token: MyString
+  esa_team: MyString
+  crowi_access_token: MyString
+  crowi_url: MyString
+
+two:
+  esa_access_token: MyString
+  esa_team: MyString
+  crowi_access_token: MyString
+  crowi_url: MyString

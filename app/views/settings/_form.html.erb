@@ -1,0 +1,37 @@
+<%= form_with(model: setting, url: edit_setting_path, local: true) do |form| %>
+  <% if setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+
+      <ul>
+      <% setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :esa_access_token %>
+    <%= form.text_field :esa_access_token, id: :setting_esa_access_token %>
+  </div>
+
+  <div class="field">
+    <%= form.label :esa_team %>
+    <%= form.text_field :esa_team, id: :setting_esa_team %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crowi_access_token %>
+    <%= form.text_field :crowi_access_token, id: :setting_crowi_access_token %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crowi_url %>
+    <%= form.text_field :crowi_url, id: :setting_crowi_url %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   root to: 'posts#index'
 
   resources :posts, :users, except: [:new, :edit, :destroy]
+  get   'settings/edit', to: 'settings#edit',   as: :edit_setting
+  patch 'settings/edit', to: 'settings#update', as: nil
+  put   'settings/edit', to: 'settings#update', as: nil
   ActiveAdmin.routes(self)
 
   # API用

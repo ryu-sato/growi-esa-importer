@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Esa access token:</strong>
+  <%= @setting.esa_access_token %>
+</p>
+
+<p>
+  <strong>Esa team:</strong>
+  <%= @setting.esa_team %>
+</p>
+
+<p>
+  <strong>Crowi access token:</strong>
+  <%= @setting.crowi_access_token %>
+</p>
+
+<p>
+  <strong>Crowi url:</strong>
+  <%= @setting.crowi_url %>
+</p>
+
+<%= link_to 'Edit', edit_setting_path(@setting) %> |
+<%= link_to 'Back', settings_path %>
