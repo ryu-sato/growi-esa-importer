@@ -13,6 +13,10 @@ Rake コマンドによりバッチ処理を行うことが出来ます。
 
 [rbenv](https://github.com/rbenv/rbenv) 等を使って適宜。
 
+### JavaScript 実行環境のインストール
+
+Node 等を適宜インストール。
+
 ## 設定
 
 - crowi-client
