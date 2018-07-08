@@ -1,5 +1,6 @@
 <h1>Post</h1>
 
+<%# Post 情報を表示 %>
 <dl class="row">
   <% show_attributes = @post.attributes.reject {|k,v| k == "lock_version"} %>
   <% show_attributes.each do |k,v| %>
@@ -7,5 +8,24 @@
     <dd class="col-sm-10"><%= v %></dd>
   <% end %>
 </dl>
-  
-<%= link_to 'Back', posts_path %>
+
+<%# Post に付けられたコメントを表示 %>
+<h2>Comments</h2>
+
+<table class="table table-striped">
+  <thead>
+    <% show_attribute_names = @comments.first&.attribute_names&.reject {|k| k == "lock_version"} %>
+    <% show_attribute_names&.each do |k| %>
+      <th><%= Post.human_attribute_name(k) %></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <% show_attribute_names.each do |k| %>
+          <td><%= comment[k] %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
