@@ -109,13 +109,17 @@ namespace :esa do
 
         # 添付ファイルをアップロード
         Dir.mktmpdir do |tmp_dir|
-          File.open(File.join(tmp_dir, attachment.filename), 'w') do |tmp_file|
+          attachment_file_name = File.join(tmp_dir, attachment.filename)
+
+          File.open(attachment_file_name, 'w') do |tmp_file|
             tmp_file.binmode
             tmp_file.write(attachment.data)
+          end
 
+          File.open(attachment_file_name, 'r') do |tmp_file|
             # 添付ファイルをアップロード
             req_add_attachment = CPApiRequestAttachmentsAdd.new(
-                                   page_id: page_id, file: tmp_file.path)
+                                   page_id: page_id, file: tmp_file)
             res = crowiclient.request req_add_attachment
             (p res.msg && next) if res.kind_of? CPInvalidRequest
             p res.data
@@ -124,13 +128,13 @@ namespace :esa do
             req_get_attachment_list = CPApiRequestAttachmentsList.new page_id: page_id
             res = crowiclient.request req_get_attachment_list
             (p res.msg && next) if res.kind_of? CPInvalidRequest
-            p res.data
-            growi_attachment = res.data.find(originalName: attachment.filename)
+            growi_attachment = res.data.find {|item| item.originalName == attachment.filename}
+            next if growi_attachment.nil?
 
-            new_body_md = post.body_md.gsub(/[^(\[\]+)]\([^\(\)]+\)/, "[\\1](#{growi_attachment.url})")
+            new_body_md = post.body_md.gsub(/\[([^\[\]]+)\]\(#{attachment.url}\)/, "[\\1](#{growi_attachment.url})")
             post.update(body_md: new_body_md)
             req_update_page = CPApiRequestPagesUpdate.new(
-              page_id: page_id, body: post.body_md)
+                                page_id: page_id, body: post.body_md)
             res = crowiclient.request req_update_page
             (p res.msg && next) if res.kind_of? CPInvalidRequest
             p res.data
