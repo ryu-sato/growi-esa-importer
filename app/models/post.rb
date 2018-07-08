@@ -12,7 +12,7 @@
 #  body_md          :string           default(""), not null
 #  body_html        :string           default(""), not null
 #  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  updated_at       :datetime
 #  url              :string           default(""), not null
 #  message          :string           default(""), not null
 #  revision_number  :integer          default(0), not null
