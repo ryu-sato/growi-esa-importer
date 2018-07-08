@@ -12,7 +12,12 @@
     <%= render 'layouts/navbar' %>
 
     <!-- Flash message -->
-    <p id="notice"><%= notice %></p>
+    <% if notice %>
+      <div class="alert alert-success"><%= notice %></div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-danger"><%= alert %></div>
+    <% end %>
 
     <!-- Each page -->
     <div class="container-fluid">
