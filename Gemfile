@@ -57,7 +57,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Use crowi API
-gem 'crowi-client', '>= 0.1.2'
+gem 'crowi-client', '>= 0.1.3'
 # Use esa API
 gem 'esa', '>= 1.0'
 
