@@ -1,11 +1,14 @@
 <h1>User</h1>
 
 <dl class="row">
-  <% show_attributes = @user.attributes.reject {|k,v| k == "lock_version"} %>
+  <% reject_attributes = %w(id lock_version) %>
+  <% show_attributes = @user.attributes.reject {|k,v| reject_attributes.include?(k)} %>
   <% show_attributes.each do |k,v| %>
     <dt class="col-sm-2"><%= User.human_attribute_name(k) %></dt>
     <dd class="col-sm-10"><%= v %></dd>
   <% end %>
 </dl>
-  
-<%= link_to 'Back', posts_path %>
+
+<h2>Created</h2>
+
+<%= render 'posts/index_table', posts: Post.where(created_by: @user) %>

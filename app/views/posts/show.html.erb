@@ -2,12 +2,17 @@
 
 <%# Post 情報を表示 %>
 <dl class="row">
-  <% show_attributes = @post.attributes.reject {|k,v| k == "lock_version"} %>
+  <% reject_attributes = %w(id lock_version created_by updated_by) %>
+  <% show_attributes = @post.attributes.reject {|k,v| reject_attributes.include?(k)} %>
   <% show_attributes.each do |k,v| %>
     <dt class="col-sm-2"><%= Post.human_attribute_name(k) %></dt>
     <dd class="col-sm-10"><%= v %></dd>
   <% end %>
-</dl>
+  <dt class="col-sm-2"><%= Post.human_attribute_name('created_by') %></dt>
+  <dd class="col-sm-10"><%= link_to @post.created_by, @post.created_by %></dd>
+  <dt class="col-sm-2"><%= Post.human_attribute_name('updated_by') %></dt>
+  <dd class="col-sm-10"><%= link_to @post.updated_by, @post.updated_by %></dd>
+  </dl>
 
 <%# Post に付けられたコメントを表示 %>
 <h2>Comments</h2>
