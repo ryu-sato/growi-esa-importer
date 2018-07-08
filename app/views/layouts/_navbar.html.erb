@@ -23,9 +23,9 @@
     
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="navbar-toggler-icon"></span></a>
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= fa_icon('tasks') %></span></a>
         <div class="dropdown-menu dropdown-menu-right">
-          <span class="dropdown-header">Header</span>
+          <span class="dropdown-header">Jobs</span>
           <%= link_to api_jobs_path(name: 'import_from_esa_to_db'), method: :post,
                 class: "dropdown-item", data: {confirm: 'Are you sure?'} do %>
             <%= fa_icon('download', text: 'Download from esa') %>
