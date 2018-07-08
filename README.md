@@ -1,43 +1,56 @@
 # What is growi-importer-esa
 
-Importer from esa data to GROWI data.
+esa のデータを一時的に DB にインポートして GROWI(crowi) へアップロードするアプリケーションです。
 
-# README
+Rake コマンドによりバッチ処理を行うことが出来ます。
+また、データを操作する簡易 UI を使うことも出来ます。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 使い方
 
-Things you may want to cover:
+## 実行環境の構築
 
-* Ruby version
+### Ruby のインストール
 
-2.5.1
+[rbenv](https://github.com/rbenv/rbenv) 等を使って適宜。
 
-* System dependencies
+## 設定
 
 - crowi-client
-- esa
+    - `config/settings` に Crowi(GROWI) の URL と API token を設定します
+```yml
+production:
+  url:   http://192.168.2.104:3001/
+  token: 123456789abcdef123456789abcdef123456789abcde
+```
+- 
+    - `env` を作成して esa の Access Token とインポート対象とする Team 名を設定します
+```
+ESA_ACCESS_TOKEN=123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234
+ESA_CURRENT_TEAM=foo-bar-team
+```
 
-* Configuration
+## 起動方法(初回のみ)
 
-TBD
+```
+git clone https://github.com/ryu-sato/growi-importer-esa.git
+cd growi-importer-esa
+bundle install
+./bin/rails db:migrate
+./bin/rails s
+```
 
-* Database creation
+## Ruby and RoR versions
+    - Ruby: 2.5.x
+    - Ruby On Rails: 5.1.x
 
-TBD
+* System dependencies
+    - crowi-client
+    - esa
 
-* Database initialization
+# TODO
 
-TBD
-
-* How to run the test suite
-
-TBD
-
-* Services (job queues, cache servers, search engines, etc.)
-
-TBD
-
-* Deployment instructions
-
-TBD
+- [ ] `esa:export_to_growi` タスクにて添付ファイルもアップロードできるようにする
+- [ ] メニューバーから Rake Task を実行できるようにする
+- [ ] Attachments の詳細ページや編集ページを開いた時にエラーが出ないようにする
+- [ ] Post / User の編集・削除操作をリンクから辿れるようにする
+- [ ] Token や URL の設定をアプリケーションで操作できるようにする
