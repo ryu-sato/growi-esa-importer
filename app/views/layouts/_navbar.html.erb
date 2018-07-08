@@ -26,8 +26,14 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="navbar-toggler-icon"></span></a>
         <div class="dropdown-menu dropdown-menu-right">
           <span class="dropdown-header">Header</span>
-          <a class="dropdown-item" href="#"><%= fa_icon('download', text: 'Download from esa') %></a>
-          <a class="dropdown-item" href="#"><%= fa_icon('upload', text: 'Upload to GROWI') %></a>
+          <%= link_to api_jobs_path(name: 'import_from_esa_to_db'), method: :post,
+                class: "dropdown-item", data: {confirm: 'Are you sure?'} do %>
+            <%= fa_icon('download', text: 'Download from esa') %>
+          <% end %>
+          <%= link_to api_jobs_path(name: 'export_from_db_to_growi'), method: :post,
+                class: "dropdown-item", data: {confirm: 'Are you sure?'} do %>
+            <%= fa_icon('upload', text: 'Upload to GROWI') %>
+          <% end %>
         </div>
       </li>
     </ul>
