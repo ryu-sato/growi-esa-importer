@@ -18,7 +18,7 @@ Rake コマンドによりバッチ処理を行うことが出来ます。
 - crowi-client
     - `config/settings` に Crowi(GROWI) の URL と API token を設定します
 ```yml
-production:
+development:
   url:   http://192.168.2.104:3001/
   token: 123456789abcdef123456789abcdef123456789abcde
 ```
