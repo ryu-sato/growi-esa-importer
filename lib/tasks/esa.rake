@@ -25,11 +25,11 @@ namespace :esa do
 
       # 記事をインポートする
       esaclient.posts.body['posts']&.each do |post|
-        ignore_attributes = %w(created_by updated_by sharing_urls tags)
+        ignore_attributes = %w(created_by updated_by tags sharing_urls)
         post_attributes = post.reject {|k,v| ignore_attributes.include?(k)}.merge({
-          created_by: User.find_by(name: post["created_by"]["name"]) || User.create(post["created_by"]),
-          updated_by: User.find_by(name: post["updated_by"]["name"]) || User.create(post["updated_by"]),
-          tags:       Array.new(post["tags"])
+          created_by:    User.find_by(name: post["created_by"]["name"]) || User.create(post["created_by"]),
+          updated_by:    User.find_by(name: post["updated_by"]["name"]) || User.create(post["updated_by"]),
+          tags:          Array.new(post["tags"])
         })
         p Post.create(post_attributes)
       end
@@ -102,12 +102,13 @@ namespace :esa do
         p res.data
         page_id = res.data.id
       end
+      next unless page_id # 新規作成できているはずだが一応 page_id を取得できなければスルー
 
       # 添付ファイルをアップロードする
-      next unless page_id # 新規作成できているはずだが一応 page_id を取得できなければスルー
+      body_md = post.body_md  # 添付ファイルをアップロードする度に書き換えるようの変数
       Attachment.where(post: post).each do |attachment|
 
-        # 添付ファイルをアップロード
+        # 添付ディレクトリ配下にファイルを作成してから添付ファイルをアップロード
         Dir.mktmpdir do |tmp_dir|
           attachment_file_name = File.join(tmp_dir, attachment.filename)
 
@@ -123,22 +124,23 @@ namespace :esa do
             res = crowiclient.request req_add_attachment
             (p res.msg && next) if res.kind_of? CPInvalidRequest
             p res.data
-
-            # アップロードした添付ファイルを元に記事のリンクを置き換える
-            req_get_attachment_list = CPApiRequestAttachmentsList.new page_id: page_id
-            res = crowiclient.request req_get_attachment_list
-            (p res.msg && next) if res.kind_of? CPInvalidRequest
-            growi_attachment = res.data.find {|item| item.originalName == attachment.filename}
-            next if growi_attachment.nil?
-
-            new_body_md = post.body_md.gsub(/\[([^\[\]]+)\]\(#{attachment.url}\)/, "[\\1](#{growi_attachment.url})")
-            post.update(body_md: new_body_md)
-            req_update_page = CPApiRequestPagesUpdate.new(
-                                page_id: page_id, body: post.body_md)
-            res = crowiclient.request req_update_page
-            (p res.msg && next) if res.kind_of? CPInvalidRequest
-            p res.data
           end
+
+          # アップロードした添付ファイルを元に記事のリンクを置き換える
+          req_get_attachment_list = CPApiRequestAttachmentsList.new page_id: page_id
+          res = crowiclient.request req_get_attachment_list
+          (p res.msg && next) if res.kind_of? CPInvalidRequest
+          growi_attachment = res.data.find {|item| item.originalName == attachment.filename}
+          next if growi_attachment.nil?
+
+          new_body_md = body_md.gsub(/\[([^\[\]]+)\]\(#{attachment.url}\)/, "[\\1](#{growi_attachment.url})")
+          req_update_page = CPApiRequestPagesUpdate.new(
+                              page_id: page_id, body: new_body_md)
+          res = crowiclient.request req_update_page
+          (p res.msg && next) if res.kind_of? CPInvalidRequest
+          p res.data
+
+          body_md = new_body_md
         end
       end
     end

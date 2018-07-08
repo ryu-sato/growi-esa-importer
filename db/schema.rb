@@ -31,8 +31,6 @@ ActiveRecord::Schema.define(version: 20180707142926) do
     t.string "url"
     t.integer "post_id", null: false
     t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_attachments_on_post_id"
   end
 
@@ -40,7 +38,7 @@ ActiveRecord::Schema.define(version: 20180707142926) do
     t.string "body_md", default: "", null: false
     t.string "body_html", default: "", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at"
     t.string "url"
     t.integer "created_by_id", null: false
     t.integer "post_id", null: false
@@ -61,7 +59,7 @@ ActiveRecord::Schema.define(version: 20180707142926) do
     t.string "body_md", default: "", null: false
     t.string "body_html", default: "", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at"
     t.string "url", default: "", null: false
     t.string "message", default: "", null: false
     t.integer "revision_number", default: 0, null: false
@@ -87,8 +85,6 @@ ActiveRecord::Schema.define(version: 20180707142926) do
     t.string "email", default: "", null: false
     t.integer "posts_count", default: 0, null: false
     t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end

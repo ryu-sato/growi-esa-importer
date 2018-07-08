@@ -24,9 +24,8 @@ class CreatePosts < ActiveRecord::Migration[5.1]
       t.integer    :watchers_count,   null: false, default: 0
       t.boolean    :star,             null: false, default: false
       t.boolean    :watch,            null: false, default: false
-      t.integer    :lock_version,     null: false, default: 0 # use optimistic lock
 
-      t.timestamps
+      t.integer    :lock_version,     null: false, default: 0  # use optimistic lock
     end
     add_foreign_key :posts, :users, column: "created_by_id"
     add_foreign_key :posts, :users, column: "updated_by"

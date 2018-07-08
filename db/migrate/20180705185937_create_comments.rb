@@ -14,7 +14,6 @@ class CreateComments < ActiveRecord::Migration[5.1]
       t.boolean    :star,             null: false, default: false
 
       t.integer    :lock_version,     null: false, default: 0 # use optimistic lock
-      t.timestamps
     end
     add_foreign_key :comments, :users, column: "created_by_id"
     add_foreign_key :comments, :posts, column: "post_id"

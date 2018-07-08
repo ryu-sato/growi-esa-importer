@@ -7,8 +7,6 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string  :email,        null: false, default: ""
       t.integer :posts_count,  null: false, default: 0
       t.integer :lock_version, default: 0, null: false # use optimistic lock
-
-      t.timestamps
     end
   end
 end

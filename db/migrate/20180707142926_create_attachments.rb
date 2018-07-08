@@ -6,7 +6,6 @@ class CreateAttachments < ActiveRecord::Migration[5.1]
       t.references :post,             null: false
 
       t.integer    :lock_version,     null: false, default: 0 # use optimistic lock
-      t.timestamps
     end
     add_foreign_key :attachments, :posts, column: "post_id"
   end
