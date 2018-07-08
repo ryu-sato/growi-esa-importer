@@ -9,8 +9,9 @@ namespace :esa do
   task :import_to_db => :environment do
 
     # esa Client を初期化
-    Dotenv.load
-    esaclient = Esa::Client.new(access_token: ENV["ESA_ACCESS_TOKEN"], current_team: ENV['ESA_CURRENT_TEAM'])
+    esa_access_token = ENV["ESA_ACCESS_TOKEN"] || Setting.first.esa_access_token
+    esa_current_team = ENV['ESA_CURRENT_TEAM'] || Setting.first.esa_team
+    esaclient = Esa::Client.new(access_token: esa_access_token, current_team: esa_current_team)
 
     # インポートが完了するまでを一連のトランザクションとする
     ActiveRecord::Base.transaction do

@@ -63,8 +63,6 @@ gem 'esa', '>= 1.0'
 
 # Use config
 gem 'config', '>= 1.0'
-# Use dotenv
-gem 'dotenv', '>= 2.5'
 
 # Use activeadmin (see. https://github.com/activeadmin/activeadmin)
 ## main
