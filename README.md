@@ -13,12 +13,16 @@ Rake コマンドによりバッチ処理を行うことが出来ます。
 
 [rbenv](https://github.com/rbenv/rbenv) 等を使って適宜。
 
+### JavaScript 実行環境のインストール
+
+Node 等を適宜インストール。
+
 ## 設定
 
 - crowi-client
     - `config/settings` に Crowi(GROWI) の URL と API token を設定します
 ```yml
-production:
+development:
   url:   http://192.168.2.104:3001/
   token: 123456789abcdef123456789abcdef123456789abcde
 ```
