@@ -36,16 +36,44 @@ git clone https://github.com/ryu-sato/growi-importer-esa.git
 cd growi-importer-esa
 bundle install
 ./bin/rails db:migrate
+```
+
+## 簡易UI起動方法
+
+※ 初回起動時は「起動方法(初回のみ)」の実施が必要
+
+```
+cd ${cloneしたgrowi-importer-esaのディレクトリ}
 ./bin/rails s
 ```
 
-## Ruby and RoR versions
-    - Ruby: 2.5.x
-    - Ruby On Rails: 5.1.x
+rails s を実行した後、`http://localhost:3000/` へアクセスすると簡易 UI が使えます。
 
-* System dependencies
-    - crowi-client
-    - esa
+## Rake タスク実行方法
+
+※ 初回起動時は「起動方法(初回のみ)」の実施が必要
+
+### esa から DB へデータをインポート
+
+```
+./bin/rake esa:import_to_db
+```
+
+### DB から GROWI へデータをエクスポート
+
+```
+./bin/rake esa:export_to_growi
+```
+
+# Ruby and Ruby on Rails versions
+
+- Ruby: 2.5.x
+- Ruby On Rails: 5.1.x
+
+## System dependencies
+
+- crowi-client
+- esa
 
 # TODO
 
