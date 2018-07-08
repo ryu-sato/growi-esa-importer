@@ -6,7 +6,7 @@
 #  body_md          :string           default(""), not null
 #  body_html        :string           default(""), not null
 #  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  updated_at       :datetime
 #  url              :string
 #  created_by_id    :integer          not null
 #  post_id          :integer          not null

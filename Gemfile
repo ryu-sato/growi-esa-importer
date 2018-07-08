@@ -57,14 +57,12 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Use crowi API
-gem 'crowi-client', '>= 0.1'
+gem 'crowi-client', '>= 0.1.3'
 # Use esa API
 gem 'esa', '>= 1.0'
 
 # Use config
 gem 'config', '>= 1.0'
-# Use dotenv
-gem 'dotenv', '>= 2.5'
 
 # Use activeadmin (see. https://github.com/activeadmin/activeadmin)
 ## main

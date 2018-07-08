@@ -22,6 +22,9 @@
     </div>
     
     <ul class="nav navbar-nav navbar-right">
+      <%= link_to edit_setting_path, class: "nav-item nav-link" do %>
+        <%= fa_icon('cogs') %>
+      <% end %>
       <li class="dropdown">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= fa_icon('tasks') %></span></a>
         <div class="dropdown-menu dropdown-menu-right">

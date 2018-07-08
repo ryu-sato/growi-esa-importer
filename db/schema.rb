@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180707142926) do
+ActiveRecord::Schema.define(version: 20180708141537) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 20180707142926) do
     t.integer "lock_version", default: 0, null: false
     t.index ["created_by_id"], name: "index_posts_on_created_by_id"
     t.index ["updated_by_id"], name: "index_posts_on_updated_by_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "esa_access_token"
+    t.string "esa_team"
+    t.string "crowi_access_token"
+    t.string "crowi_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
