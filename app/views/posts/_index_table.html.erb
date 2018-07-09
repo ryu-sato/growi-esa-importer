@@ -1,6 +1,7 @@
 <%#
-  # Post 一覧を表示するレンダ
-  #   posts: 表示する Post モデルのインスタンス配列
+  # Post 一覧を表示するパーシャル
+  # 引数
+  #   posts: 表示する Post モデルインスタンスの配列
   #%>
 <table class="table table-sm table-striped">
   <thead class="table-dark">
@@ -19,6 +20,7 @@
       <th>Watchers count</th>
       <th>Star</th>
       <th>Watch</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -39,6 +41,16 @@
         <td><%= post.watchers_count %></td>
         <td><%= post.star %></td>
         <td><%= post.watch %></td>
+        <td>
+          <%= link_to edit_admin_post_path(post) do %>
+            <button class="btn btn-link">Edit</button>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to admin_post_path(post), method: :delete, data: {confirm: 'Are you sure?'} do %>
+            <button class="btn btn-link">Delete</button>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

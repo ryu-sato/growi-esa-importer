@@ -8,6 +8,7 @@
       <th>Icon</th>
       <th>Email</th>
       <th>Posts count</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -19,6 +20,16 @@
         <td><%= user.icon %></td>
         <td><%= user.email %></td>
         <td><%= user.posts_count %></td>
+        <td>
+          <%= link_to edit_admin_user_path(user) do %>
+            <button class="btn btn-link">Edit</button>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to admin_user_path(user), method: :delete, data: {confirm: 'Are you sure?'} do %>
+            <button class="btn btn-link">Delete</button>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
