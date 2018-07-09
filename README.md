@@ -1,4 +1,4 @@
-# What is growi-importer-esa
+# growi-importer-esa とは
 
 esa のデータを一時的に DB にインポートして GROWI(crowi) へアップロードするアプリケーションです。
 
@@ -19,19 +19,15 @@ Node 等を適宜インストール。
 
 ## 設定
 
-- crowi-client
-    - `config/settings` に Crowi(GROWI) の URL と API token を設定します
-```yml
-development:
-  url:   http://192.168.2.104:3001/
-  token: 123456789abcdef123456789abcdef123456789abcde
-```
-- 
-    - `env` を作成して esa の Access Token とインポート対象とする Team 名を設定します
-```
-ESA_ACCESS_TOKEN=123456789abcdef123456789abcdef123456789abcdef123456789abcdef1234
-ESA_CURRENT_TEAM=foo-bar-team
-```
+アプリケーション実行時の環境変数により設定が出来ます。
+簡易UIから設定する場合はメニューバーから設定ボタン（ギアマーク）を押下して表示される画面から設定して下さい。
+
+|環境変数名|簡易UI項目名|説明|備考|
+| --- | --- | --- | --- |
+|CROWI_URL|Crowi url|Crowi(GROWI) の URL|crowi-client の仕様により Basic 認証が設定されていると動作しません|
+|CROWI_ACCESS_TOKEN|Crowi access token|Crowi(GROWI) の Access Token||
+|ESA_ACCESS_TOKEN|Esa access token|esa の Access Token|Read 権限が必要です|
+|ESA_CURRENT_TEAM|Esa team|esa の Team 名||
 
 ## 起動方法(初回のみ)
 
