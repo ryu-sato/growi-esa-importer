@@ -11,11 +11,12 @@ Rake コマンドによりバッチ処理を行うことが出来ます。
 
 ### Ruby のインストール
 
-[rbenv](https://github.com/rbenv/rbenv) 等を使って適宜。
+[rbenv](https://github.com/rbenv/rbenv) 等を使って適宜インストールして下さい。
+Ruby バージョンは `.ruby-version` に記載したものを使って下さい。
 
 ### JavaScript 実行環境のインストール
 
-Node 等を適宜インストール。
+[Node](https://nodejs.org/ja/) 等を適宜インストールして下さい。
 
 ## 設定
 
@@ -64,21 +65,3 @@ rails s を実行した後、`http://localhost:3000/` へアクセスすると�
 ```
 ./bin/rake esa:export_to_growi
 ```
-
-# Ruby and Ruby on Rails versions
-
-- Ruby: 2.5.x
-- Ruby On Rails: 5.1.x
-
-## System dependencies
-
-- crowi-client
-- esa
-
-# TODO
-
-- [x] `esa:export_to_growi` タスクにて添付ファイルもアップロードできるようにする
-- [x] メニューバーから Rake Task を実行できるようにする
-- [x] Attachments の詳細ページや編集ページを開いた時にエラーが出ないようにする
-- [x] Post / User の編集・削除操作をリンクから辿れるようにする
-- [x] Token や URL の設定をアプリケーションで操作できるようにする
