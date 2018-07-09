@@ -12,4 +12,8 @@ ActiveAdmin.register Post do
 #   permitted
 # end
 
+  permit_params do
+    permitted = Post.attribute_names
+  end
+
 end

@@ -12,4 +12,8 @@ ActiveAdmin.register User do
 #   permitted
 # end
 
+  permit_params do
+    permitted = User.attribute_names
+  end
+
 end

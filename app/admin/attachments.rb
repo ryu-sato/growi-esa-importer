@@ -12,6 +12,8 @@ ActiveAdmin.register Attachment do
 #   permitted
 # end
 
+  permit_params :url, :post
+
   # index ページの表示内容をカスタマイズ
   index do
     selectable_column # 選択カラムを追加
@@ -19,8 +21,30 @@ ActiveAdmin.register Attachment do
     column :id
     column :url
     column :post
-    column :created_at
-    column :updated_at
     actions # アクションカラムを追加
   end
+
+  # show ページの表示内容をカスタマイズ
+  #   ref. https://activeadmin.info/6-show-pages.html
+  show do
+    attributes_table do
+      row :id
+      row :url
+      row :post
+      row('data_size (bytes)') do |attachment|
+        attachment.data.size
+      end
+    end
+  end
+
+  # edit ページの表示内容をカスタマイズ
+  form do |f|
+    f.semantic_errors # shows errors on :base
+    f.inputs do
+      f.input :url
+      f.input :post
+    end
+    f.actions         # adds the 'Submit' and 'Cancel' buttons
+  end
+
 end

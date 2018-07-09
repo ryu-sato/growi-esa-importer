@@ -12,4 +12,8 @@ ActiveAdmin.register Comment do
 #   permitted
 # end
 
+  permit_params do
+    permitted = Comment.attribute_names
+  end
+
 end
